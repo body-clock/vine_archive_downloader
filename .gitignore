@@ -1,2 +1,7 @@
 # Project exclude paths
-/venv/
+/venv/downloads
+/venv/html
+
+downloads
+html
+venv
