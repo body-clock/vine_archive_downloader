@@ -1,16 +1,13 @@
 from bs4 import BeautifulSoup as bs
 import urllib.request
 
-page = open('packie.html')
-soup = bs(page, 'html.parser')
-grid_posts = soup.find_all('div', {'class': 'ember-view grid post'})
+name = input('Input the name: ')
 
-video_containers = []
-for p in grid_posts:
-    video_containers.append(p.find('div', {'class': 'video-container'}))
+page = open(f'html/{name}.html')
+soup = bs(page, 'html.parser')
 
 links = []
-for c in video_containers:
+for c in soup.find_all('div', {'class': 'video-container'}):
     link_text = c.get('style')
     start = link_text.find('https')
     end = link_text.find('.mp4', start) + 4
@@ -21,7 +18,7 @@ for l in links:
     index += 1
     try:
         print(f'Downloading {index:03}...')
-        urllib.request.urlretrieve(l, f'vines/packie_{index:03}.mp4')
+        urllib.request.urlretrieve(l, f'{name}_vines/{name}_{index:03}.mp4')
         print(f'{index:03} complete!')
     except Exception as e:
         print(e)
